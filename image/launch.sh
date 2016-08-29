@@ -59,7 +59,7 @@ if [ "${HOSTNAME##*-}" = "master" ] ; then
     KUBERNETES_SERVICE_PORT=""
 fi
 
-if [ -n "$WEAVE_PEERS" ] ; then
+if [ -z ${WEAVE_PEERS+x} ] ; then
   WEAVE_PEERS=$(/home/weave/kube-peers)
 fi
 
@@ -81,6 +81,6 @@ while true ; do
 done
 
 # Expose the weave network so host processes can communicate with pods
-/home/weave/weave --local expose
+/home/weave/weave --local expose $WEAVE_IP
 
 wait $WEAVE_PID
