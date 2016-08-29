@@ -4,6 +4,7 @@ set -e
 
 WEAVE_VERSION=${WEAVE_VERSION:-latest}
 IMAGE_VERSION=${IMAGE_VERSION:-$WEAVE_VERSION}
+IMAGE_NAME=${IMAGE_NAME:-weaveworks/weave-kube}
 
 # Build helper program
 go build -i -o image/kube-peers -ldflags "-linkmode external -extldflags -static" ./kube-peers
@@ -17,4 +18,4 @@ docker cp $NAME:/etc/ssl/certs/ca-certificates.crt image
 docker rm $NAME
 
 # Build the end product
-docker build -t weaveworks/weave-kube:$IMAGE_VERSION image
+docker build -t $IMAGE_NAME:$IMAGE_VERSION image
