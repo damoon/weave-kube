@@ -60,7 +60,7 @@ if [ "${HOSTNAME##*-}" = "master" ] ; then
 fi
 
 if [ -z ${WEAVE_PEERS+x} ] ; then
-  WEAVE_PEERS=$(/home/weave/kube-peers)
+  WEAVE_PEERS=$(kubectl --context matrix get no -o json | jq -r '.items[].status.addresses[] | select(.type=="InternalIP") | .address' | tr '\n' ' ')
 fi
 
 /home/weave/weaver --port=6783 $BRIDGE_OPTIONS \

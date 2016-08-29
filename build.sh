@@ -6,9 +6,6 @@ WEAVE_VERSION=${WEAVE_VERSION:-latest}
 IMAGE_VERSION=${IMAGE_VERSION:-$WEAVE_VERSION}
 IMAGE_NAME=${IMAGE_NAME:-weaveworks/weave-kube}
 
-# Build helper program
-go build -i -o image/kube-peers -ldflags "-linkmode external -extldflags -static" ./kube-peers
-
 # Extract other files we need
 NAME=weave-kube-$$
 docker create --name=$NAME weaveworks/weave:$WEAVE_VERSION
