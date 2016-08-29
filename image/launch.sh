@@ -59,11 +59,15 @@ if [ "${HOSTNAME##*-}" = "master" ] ; then
     KUBERNETES_SERVICE_PORT=""
 fi
 
+if [ -n "$WEAVE_PEERS" ] ; then
+  WEAVE_PEERS=$(/home/weave/kube-peers)
+fi
+
 /home/weave/weaver --port=6783 $BRIDGE_OPTIONS \
      --http-addr=127.0.0.1:6784 --docker-api='' --no-dns \
      --ipalloc-range=$IPALLOC_RANGE $NICKNAME_ARG \
      --name=$(cat /sys/class/net/weave/address) "$@" \
-     $(/home/weave/kube-peers) &
+     $WEAVE_PEERS &
 WEAVE_PID=$!
 
 # Wait for weave process to become responsive
