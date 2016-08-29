@@ -81,6 +81,6 @@ while true ; do
 done
 
 # Expose the weave network so host processes can communicate with pods
-/home/weave/weave --local expose
+/home/weave/weave --local expose $WEAVE_IP
 
 wait $WEAVE_PID
