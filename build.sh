@@ -4,6 +4,7 @@ set -e
 
 WEAVE_VERSION=${WEAVE_VERSION:-latest}
 IMAGE_VERSION=${IMAGE_VERSION:-$WEAVE_VERSION}
+IMAGE_NAME=${IMAGE_NAME:-weaveworks/weave-kube}
 
 if ! grep -q "FROM.*$WEAVE_VERSION" image/Dockerfile ; then
     echo "WEAVE_VERSION does not match image/Dockerfile"
@@ -22,4 +23,4 @@ $SUDO docker cp $NAME:/etc/ssl/certs/ca-certificates.crt image
 $SUDO docker rm $NAME
 
 # Build the end product
-$SUDO docker build -t weaveworks/weave-kube:$IMAGE_VERSION image
+$SUDO docker build -t $IMAGE_NAME:$IMAGE_VERSION image
